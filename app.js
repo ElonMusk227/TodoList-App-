@@ -1,17 +1,20 @@
-import { Todolist } from "./components/Todolist";
-import { fetchJSON } from "./functions/api";
-import { createElement } from "./functions/dom";
+import { Todolist } from "./components/Todolist.js";
+import { FetchJSON } from "./functions/api.js";
+import { createElement } from "./functions/dom.js";
 
-try
-{
-    const todos = await fetchJSON('https://jsonplaceholder.typicode.com/todos?_limit=5')
-    const list = new Todolist(todos)
-    list.appendTo(document.querySelector('#todolist'))
-}catch(e){
-   const div = alertElement('div',{
-    class: 'alert alert-danger',
-    role: 'alert'
-   })
-   div.innerText = 'Impossible de charger les elements'
-   document.body.append(alertElement)
+async function loadTodolist() {
+    try {
+        const todos = await FetchJSON('https://jsonplaceholder.typicode.com/todos?_limit=5')
+        const list = new Todolist(todos)
+        list.appendTo(document.querySelector('#todolist'))
+    } catch(e) {
+        const alertElement = createElement('div', {
+            class: 'alert alert-danger m-2',
+            role: 'alert'
+        })
+        alertElement.innerText = 'Impossible de charger les éléments'
+        document.body.prepend(alertElement)
+    }
 }
+
+loadTodolist();

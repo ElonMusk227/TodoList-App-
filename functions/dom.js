@@ -1,13 +1,15 @@
 /**
  * 
- * @param {string } tagName 
+ * @param {string} tagname 
  * @param {object} attributes 
  * @return {HTMLElement}
  */
-export function alertElement(tagName, attributes = {}){
-    const element = document.createElement(tagName)
-    for (const [attribute, value] of Object.entries(attributes)){
-         element.setAttribute(attribute, value )
+export function createElement (tagname, attributes = {}){
+    const element = document.createElement(tagname)
+    for(const [attribute, value] of Object.entries(attributes)){
+        if(value!== null){
+            element.setAttribute(attribute, value)
+        }
     }
-    return element
+    return  element
 }
